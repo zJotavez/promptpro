@@ -174,16 +174,41 @@ function delImg(i){
   renderImgGallery();renderHistGallery();toast('🗑️ Imagem excluída','info');
 }
 
-// === COPY GENERATOR ===
-function genCopy(){
+// === PROMPT REFINER (ANTIGO COPY GEN) ===
+function genRefinedPrompt(){
   const prompt=document.getElementById('copyPrompt').value.trim();
-  if(!prompt){toast('⚠️ Digite um prompt primeiro','error');return;}
+  const instr=document.getElementById('refineInstructions').value.trim();
+  if(!prompt || !instr){toast('⚠️ Preencha o prompt e a instrução','error');return;}
+  
   const rd=document.getElementById('copyResult');const out=document.getElementById('copyOut');
-  rd.style.display='block';out.innerHTML='<div style="padding:20px"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line"></div><div class="skeleton skel-line w60"></div><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w40"></div></div>';
+  rd.style.display='block';
+  out.innerHTML='<div class="skeleton skel-line w80"></div><div class="skeleton skel-line"></div>';
+  
   setTimeout(()=>{
-    out.textContent=`Assunto: Transforme Seus Resultados em 90 Dias\n\nOlá [Nome],\n\nNotei que sua equipe na [Empresa] tem crescido rapidamente — parabéns pelo crescimento recente.\n\nPorém, com a escala vem a complexidade. A maioria das equipes na sua posição enfrenta:\n\n• Fluxos de trabalho fragmentados em 5+ ferramentas\n• Silos de dados que atrasam a tomada de decisão\n• Custos operacionais crescentes corroendo as margens\n\nAjudamos a [Empresa Similar] a reduzir seus custos operacionais em 40% enquanto aumentavam a produção em 3x — tudo em um trimestre.\n\nValeria uma conversa de 15 minutos para explorar se poderíamos fazer o mesmo pela [Empresa]?\n\nAtenciosamente,\nJoão Vitor\nJV Prompt Pro`;
-    toast('✅ Texto gerado com sucesso!','success');
-  },2500);
+    // Simulação inteligente de atualização de prompt
+    let newPrompt = prompt;
+    
+    // Lógica simples de substituição para demonstração (ex: idade)
+    if(instr.toLowerCase().includes('anos')){
+      const ageMatch = instr.match(/\d+/);
+      if(ageMatch) newPrompt = newPrompt.replace(/\d+ anos/g, ageMatch[0] + ' anos').replace(/“\d+”/g, `“${ageMatch[0]}”`);
+    }
+    
+    // Adiciona as novas instruções de forma técnica
+    newPrompt = newPrompt + ", refined with: " + instr + ", cinematic lighting, detailed textures, 8K resolution.";
+    
+    out.textContent = newPrompt;
+    toast('✅ Prompt refinado com sucesso!','success');
+  },1500);
+}
+
+function useRefinedPrompt(){
+  const newPrompt = document.getElementById('copyOut').textContent;
+  nav('image-gen');
+  setTimeout(()=>{
+    document.getElementById('imgPrompt').value = newPrompt;
+    toast('✨ Novo prompt carregado no gerador!','success');
+  },100);
 }
 
 // === HISTORY ===

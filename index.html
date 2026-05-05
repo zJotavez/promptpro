@@ -108,30 +108,38 @@
       </div>
     </section>
 
-    <!-- COPY GENERATOR -->
+    <!-- PROMPT REFINER (ANTIGO GERADOR DE TEXTO) -->
     <section class="view" id="view-copy-gen">
-      <div class="page-header"><h2>Gerador de Texto</h2><p>Crie conteúdo de marketing e editorial com modelos de linguagem avançados.</p></div>
+      <div class="page-header"><h2>Otimizador de Prompt</h2><p>Refine e adapte seus prompts para obter resultados ainda mais precisos e profissionais.</p></div>
       <div class="gen-layout">
         <div>
-          <div class="glass-card prompt-area">
-            <textarea class="textarea" id="copyPrompt" placeholder="Descreva o texto que precisa... ex: 'Escreva uma sequência de emails para lançamento de produto SaaS B2B'"></textarea>
+          <div class="glass-card prompt-area" style="display:flex;flex-direction:column;gap:16px">
+            <div>
+              <label class="form-label">Prompt Original</label>
+              <textarea class="textarea" id="copyPrompt" style="min-height:80px" placeholder="Cole o prompt que você quer adaptar..."></textarea>
+            </div>
+            <div>
+              <label class="form-label">O que você deseja mudar?</label>
+              <textarea class="textarea" id="refineInstructions" style="min-height:80px" placeholder="Ex: 'mude a idade para 25 anos e o vestido para azul' ou 'adicione iluminação de neon'"></textarea>
+            </div>
             <div class="prompt-actions">
-              <button class="btn btn-secondary btn-sm" onclick="document.getElementById('copyPrompt').value=''"><span class="material-symbols-outlined">delete</span>Limpar</button>
-              <button class="btn btn-primary" onclick="genCopy()"><span class="material-symbols-outlined">edit_note</span>Gerar Texto</button>
+              <button class="btn btn-secondary btn-sm" onclick="document.getElementById('copyPrompt').value='';document.getElementById('refineInstructions').value=''"><span class="material-symbols-outlined">delete</span>Limpar</button>
+              <button class="btn btn-primary" onclick="genRefinedPrompt()"><span class="material-symbols-outlined">auto_fix_high</span>Gerar Novo Prompt</button>
             </div>
           </div>
           <div class="glass-card" id="copyResult" style="margin-top:20px;display:none">
-            <div class="section-header"><h3>Texto Gerado</h3><button class="btn btn-ghost btn-sm" onclick="copyText(document.getElementById('copyOut').textContent)"><span class="material-symbols-outlined">content_copy</span>Copiar</button></div>
-            <div id="copyOut" style="white-space:pre-wrap;font-size:13px;line-height:1.7;color:var(--on-dim);margin-top:10px"></div>
+            <div class="section-header"><h3>Prompt Atualizado</h3><button class="btn btn-ghost btn-sm" onclick="copyText(document.getElementById('copyOut').textContent)"><span class="material-symbols-outlined">content_copy</span>Copiar</button></div>
+            <div id="copyOut" class="gradient-border" style="padding:16px; border-radius:12px; background:rgba(0,0,0,0.3); font-family:monospace; font-size:13px; line-height:1.7; color:var(--cyan); margin-top:10px; border:1px solid var(--cyan-glow)"></div>
+            <div style="margin-top:12px; display:flex; justify-content:flex-end">
+                <button class="btn btn-primary btn-sm" onclick="useRefinedPrompt()"><span class="material-symbols-outlined">image</span>Usar no Gerador</button>
+            </div>
           </div>
         </div>
         <div class="gen-settings">
           <div class="glass-card">
-            <h3 style="font-size:15px;font-weight:600;margin-bottom:18px">Configurações</h3>
-            <div class="form-group"><label class="form-label">Modelo</label><select class="input"><option>GPT-4o</option><option>Claude 3.5 Sonnet</option><option>Gemini Pro</option></select></div>
-            <div class="form-group"><label class="form-label">Tom</label><select class="input"><option>Profissional</option><option>Casual</option><option>Persuasivo</option><option>Acadêmico</option></select></div>
-            <div class="form-group"><label class="form-label">Formato</label><select class="input"><option>Email</option><option>Post de Blog</option><option>Redes Sociais</option><option>Landing Page</option><option>Anúncio</option></select></div>
-            <div class="form-group"><label class="form-label">Tamanho</label><select class="input"><option>Curto (100-200 palavras)</option><option>Médio (300-500 palavras)</option><option>Longo (800+ palavras)</option></select></div>
+            <h3 style="font-size:15px;font-weight:600;margin-bottom:18px">Estilo do Refinamento</h3>
+            <div class="form-group"><label class="form-label">Motor de IA</label><select class="input"><option>Prompt Engine v2.0</option><option>GPT-4o Optimizer</option></select></div>
+            <div class="form-group"><label class="form-label">Nível de Detalhe</label><select class="input"><option>Ultra Detalhado (8K)</option><option>Cinematográfico</option><option>Minimalista</option></select></div>
           </div>
         </div>
       </div>

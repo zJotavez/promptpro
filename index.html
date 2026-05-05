@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="JV Prompt Pro - Plataforma profissional de IA para engenharia de prompts, geração de imagens e conteúdo.">
+  <title>JV Prompt Pro — Espaço de Precisão</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='20' width='100' height='100' fill='%23051424'/><text x='50' y='68' text-anchor='middle' font-size='50' font-weight='700' fill='%2300F0FF'>JP</text></svg>">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">JP</div><div><h1>JV PROMPT PRO</h1><span>Espaço de Precisão</span></div></div>
+    <nav class="sidebar-nav">
+      <a class="nav-item active" data-view="dashboard" onclick="nav('dashboard')"><span class="material-symbols-outlined">dashboard</span>Painel</a>
+      <a class="nav-item" data-view="library" onclick="nav('library')"><span class="material-symbols-outlined">book_5</span>Biblioteca</a>
+      <a class="nav-item" data-view="image-gen" onclick="nav('image-gen')"><span class="material-symbols-outlined">image</span>Gerador de Imagem</a>
+      <a class="nav-item" data-view="copy-gen" onclick="nav('copy-gen')"><span class="material-symbols-outlined">edit_note</span>Gerador de Texto</a>
+      <a class="nav-item" data-view="history" onclick="nav('history')"><span class="material-symbols-outlined">history</span>Histórico</a>
+      <a class="nav-item" data-view="favorites" onclick="nav('favorites')"><span class="material-symbols-outlined">favorite</span>Favoritos</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a class="nav-item" onclick="toast('Suporte em breve!','info')"><span class="material-symbols-outlined">help</span>Suporte</a>
+      <a class="nav-item" onclick="toast('Configurações em breve!','info')"><span class="material-symbols-outlined">settings</span>Configurações</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- DASHBOARD -->
+    <section class="view active" id="view-dashboard">
+      <div class="page-header"><h2>Bem-vindo, <span class="gradient-text">João</span></h2><p>Veja o que está acontecendo no seu espaço de trabalho hoje.</p></div>
+      <div class="stats-grid">
+        <div class="glass-card stat-card"><div class="stat-label"><span class="material-symbols-outlined" style="font-size:15px">electric_bolt</span>Prompts Usados</div><div class="stat-value cyan" data-target="1247">0</div><div class="stat-change"><span class="material-symbols-outlined" style="font-size:14px">trending_up</span>+12% esta semana</div></div>
+        <div class="glass-card stat-card"><div class="stat-label"><span class="material-symbols-outlined" style="font-size:15px">photo_camera</span>Imagens Geradas</div><div class="stat-value blue" data-target="384">0</div><div class="stat-change"><span class="material-symbols-outlined" style="font-size:14px">trending_up</span>+8% esta semana</div></div>
+        <div class="glass-card stat-card"><div class="stat-label"><span class="material-symbols-outlined" style="font-size:15px">bookmark</span>Prompts Salvos</div><div class="stat-value gold" data-target="56">0</div><div class="stat-change"><span class="material-symbols-outlined" style="font-size:14px">trending_up</span>+3 novos hoje</div></div>
+      </div>
+      <div class="quick-actions">
+        <div class="glass-card action-card card-glow" onclick="nav('image-gen')"><div class="action-icon i1"><span class="material-symbols-outlined">auto_awesome</span></div><h3>Gerar Imagem</h3><p>Síntese visual de alta fidelidade</p></div>
+        <div class="glass-card action-card card-glow" onclick="nav('copy-gen')"><div class="action-icon i2"><span class="material-symbols-outlined">edit_note</span></div><h3>Criar Texto</h3><p>Conteúdo de marketing e editorial</p></div>
+        <div class="glass-card action-card card-glow" onclick="nav('library')"><div class="action-icon i3"><span class="material-symbols-outlined">explore</span></div><h3>Explorar Prompts</h3><p>Templates da comunidade</p></div>
+      </div>
+      <div class="section-header"><h3>Atividade Recente</h3><a class="link-btn" onclick="nav('history')">Ver Tudo</a></div>
+      <div class="glass-card" style="padding:6px">
+        <div class="activity-list">
+          <div class="activity-item"><div class="act-icon img"><span class="material-symbols-outlined">image</span></div><div><h4>Cidade cyberpunk com reflexos neon</h4><p>Gerador de Imagem · DALL-E 3</p></div><span class="time">2h atrás</span></div>
+          <div class="activity-item"><div class="act-icon cpy"><span class="material-symbols-outlined">edit_note</span></div><div><h4>Sequência de emails para lançamento SaaS</h4><p>Gerador de Texto · GPT-4o</p></div><span class="time">5h atrás</span></div>
+          <div class="activity-item"><div class="act-icon cod"><span class="material-symbols-outlined">code</span></div><div><h4>Componente React com glassmorphism</h4><p>Biblioteca · Código</p></div><span class="time">1d atrás</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMPT LIBRARY -->
+    <section class="view" id="view-library">
+      <div class="page-header"><h2>Biblioteca de Prompts</h2><p>Descubra, gerencie e execute prompts de alta performance para seus fluxos de trabalho.</p></div>
+      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+        <div class="search-wrap"><span class="material-symbols-outlined">search</span><input class="input" id="promptSearch" placeholder="Buscar em Retratos Premium..." oninput="filterPrompts()"></div>
+      </div>
+      <div class="prompts-grid" id="promptsGrid"></div>
+    </section>
+
+    <!-- IMAGE GENERATOR -->
+    <section class="view" id="view-image-gen">
+      <div class="page-header"><h2>Gerador de Imagens</h2><p>Transforme texto em assets visuais de alta fidelidade usando modelos de difusão avançados.</p></div>
+      <div class="gen-layout">
+        <div>
+          <div class="glass-card prompt-area">
+            <textarea class="textarea" id="imgPrompt" placeholder="Descreva a imagem que deseja criar... ex: 'Uma cidade cyberpunk deslumbrante ao pôr do sol com reflexos neon nas ruas molhadas'"></textarea>
+            <div class="prompt-actions">
+              <div style="display:flex;gap:6px"><button class="btn btn-secondary btn-sm" onclick="document.getElementById('imgPrompt').value=''"><span class="material-symbols-outlined">delete</span>Limpar</button><button class="btn btn-secondary btn-sm" onclick="randPrompt()"><span class="material-symbols-outlined">casino</span>Aleatório</button></div>
+              <button class="btn btn-primary" onclick="genImage()"><span class="material-symbols-outlined">auto_awesome</span>Gerar Imagem</button>
+            </div>
+          </div>
+          <div class="image-grid" id="imgGallery"><div class="empty-state" style="grid-column:1/-1"><span class="material-symbols-outlined">add_photo_alternate</span><h4>Nenhuma imagem gerada</h4><p>Suas imagens aparecerão aqui após a geração.</p></div></div>
+        </div>
+        <div class="gen-settings">
+          <div class="glass-card">
+            <h3 style="font-size:15px;font-weight:600;margin-bottom:18px">Configurações</h3>
+            <div class="form-group"><label class="form-label">Modelo</label><select class="input" id="imgModel"><option>DALL-E 3</option><option>Stable Diffusion XL</option><option>Midjourney v6</option><option>Imagen 3</option></select></div>
+            <div class="form-group"><label class="form-label">Estilo</label><select class="input" id="imgStyle"><option>Fotorrealista</option><option>Arte Digital</option><option>Cinematográfico</option><option>Anime</option><option>Pintura a Óleo</option><option>Render 3D</option><option>Publicitário</option></select></div>
+            <div class="form-group"><label class="form-label">Proporção</label><select class="input" id="imgRatio"><option>1:1 (Quadrado)</option><option>16:9 (Paisagem)</option><option>9:16 (Retrato)</option><option>4:3 (Clássico)</option></select></div>
+            <div class="form-group"><label class="form-label">Qualidade</label><select class="input"><option>HD (1024×1024)</option><option>Padrão (512×512)</option><option>Ultra HD (2048×2048)</option></select></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COPY GENERATOR -->
+    <section class="view" id="view-copy-gen">
+      <div class="page-header"><h2>Gerador de Texto</h2><p>Crie conteúdo de marketing e editorial com modelos de linguagem avançados.</p></div>
+      <div class="gen-layout">
+        <div>
+          <div class="glass-card prompt-area">
+            <textarea class="textarea" id="copyPrompt" placeholder="Descreva o texto que precisa... ex: 'Escreva uma sequência de emails para lançamento de produto SaaS B2B'"></textarea>
+            <div class="prompt-actions">
+              <button class="btn btn-secondary btn-sm" onclick="document.getElementById('copyPrompt').value=''"><span class="material-symbols-outlined">delete</span>Limpar</button>
+              <button class="btn btn-primary" onclick="genCopy()"><span class="material-symbols-outlined">edit_note</span>Gerar Texto</button>
+            </div>
+          </div>
+          <div class="glass-card" id="copyResult" style="margin-top:20px;display:none">
+            <div class="section-header"><h3>Texto Gerado</h3><button class="btn btn-ghost btn-sm" onclick="copyText(document.getElementById('copyOut').textContent)"><span class="material-symbols-outlined">content_copy</span>Copiar</button></div>
+            <div id="copyOut" style="white-space:pre-wrap;font-size:13px;line-height:1.7;color:var(--on-dim);margin-top:10px"></div>
+          </div>
+        </div>
+        <div class="gen-settings">
+          <div class="glass-card">
+            <h3 style="font-size:15px;font-weight:600;margin-bottom:18px">Configurações</h3>
+            <div class="form-group"><label class="form-label">Modelo</label><select class="input"><option>GPT-4o</option><option>Claude 3.5 Sonnet</option><option>Gemini Pro</option></select></div>
+            <div class="form-group"><label class="form-label">Tom</label><select class="input"><option>Profissional</option><option>Casual</option><option>Persuasivo</option><option>Acadêmico</option></select></div>
+            <div class="form-group"><label class="form-label">Formato</label><select class="input"><option>Email</option><option>Post de Blog</option><option>Redes Sociais</option><option>Landing Page</option><option>Anúncio</option></select></div>
+            <div class="form-group"><label class="form-label">Tamanho</label><select class="input"><option>Curto (100-200 palavras)</option><option>Médio (300-500 palavras)</option><option>Longo (800+ palavras)</option></select></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="view" id="view-history">
+      <div class="page-header"><h2>Histórico & Perfil</h2><p>Seus assets criados recentemente e informações da conta.</p></div>
+      <div class="hist-layout">
+        <div>
+          <div class="glass-card profile-card">
+            <div class="avatar">JV</div>
+            <h3>João Vitor</h3>
+            <p class="email">joao@jvpromptpro.com</p>
+            <p class="since">Membro desde Out 2023</p>
+            <div class="plan-badge plan-premium"><span class="material-symbols-outlined" style="font-size:14px">workspace_premium</span>Premium</div>
+            <div class="profile-links">
+              <button class="profile-link" onclick="toast('Configurações de conta em breve!','info')"><span class="material-symbols-outlined">person</span>Minha Conta</button>
+              <button class="profile-link" onclick="toast('Cobrança em breve!','info')"><span class="material-symbols-outlined">credit_card</span>Cobrança</button>
+              <button class="profile-link" onclick="nav('history')"><span class="material-symbols-outlined">history</span>Histórico Completo</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="tabs"><button class="tab active" onclick="switchTab(this,'tabImages')">Imagens</button><button class="tab" onclick="switchTab(this,'tabTimeline')">Linha do Tempo</button><button class="tab" onclick="switchTab(this,'tabAccount')">Conta</button></div>
+          <div class="tab-content active" id="tabImages">
+            <div class="section-header"><h3>Criações Recentes</h3><div class="chips" style="gap:4px"><span class="chip active" onclick="this.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));this.classList.add('active')">Todos</span><span class="chip" onclick="this.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));this.classList.add('active')">Imagens</span><span class="chip" onclick="this.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));this.classList.add('active')">Textos</span></div></div>
+            <div class="hist-gallery" id="histGallery"></div>
+          </div>
+          <div class="tab-content" id="tabTimeline"><div id="timelineList"></div></div>
+          <div class="tab-content" id="tabAccount">
+            <div class="glass-card" style="max-width:500px">
+              <h3 style="font-size:16px;font-weight:600;margin-bottom:18px">Informações da Conta</h3>
+              <div class="form-group"><label class="form-label">Nome</label><input class="input" value="João Vitor"></div>
+              <div class="form-group"><label class="form-label">Email</label><input class="input" value="joao@jvpromptpro.com"></div>
+              <div class="form-group"><label class="form-label">Plano</label><input class="input" value="Premium" disabled style="opacity:.6"></div>
+              <button class="btn btn-primary" onclick="toast('✅ Alterações salvas com sucesso!','success');this.classList.add('glow-pulse');setTimeout(()=>this.classList.remove('glow-pulse'),600)"><span class="material-symbols-outlined">save</span>Salvar Alterações</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAVORITES -->
+    <section class="view" id="view-favorites">
+      <div class="page-header"><h2>Favoritos</h2><p>Seus prompts marcados e templates salvos.</p></div>
+      <div class="prompts-grid" id="favsGrid"></div>
+    </section>
+
+  </main>
+</div>
+<nav class="mobile-nav"><button class="mob-item active" onclick="nav('dashboard')"><span class="material-symbols-outlined">dashboard</span>Painel</button><button class="mob-item" onclick="nav('library')"><span class="material-symbols-outlined">book_5</span>Biblioteca</button><button class="mob-item" onclick="nav('history')"><span class="material-symbols-outlined">history</span>Histórico</button><button class="mob-item" onclick="nav('favorites')"><span class="material-symbols-outlined">favorite</span>Favoritos</button></nav>
+<script src="js/app.js"></script>
+</body>
+</html>

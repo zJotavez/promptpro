@@ -91,11 +91,6 @@ function renderPrompts(filter, search) {
     </div>`;
   }).join('');
 }
-content_copy</span>Copiar</button>
-      </div>
-    </div>`;
-  }).join('');
-}
 
 function filterCat(el,cat){
   el.closest('.chips').querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));

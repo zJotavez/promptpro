@@ -7,7 +7,7 @@ function nav(id){
   document.querySelectorAll('.mob-item').forEach(n=>n.classList.remove('active'));
   const v=document.getElementById('view-'+id);if(v)v.classList.add('active');
   document.querySelectorAll(`.nav-item[data-view="${id}"]`).forEach(n=>n.classList.add('active'));
-  const mm={dashboard:0,library:1,history:2,favorites:3};
+  const mm={dashboard:0, library:1, 'image-gen':2, 'copy-gen':3, history:4, favorites:5};
   if(mm[id]!==undefined)document.querySelectorAll('.mob-item')[mm[id]]?.classList.add('active');
   document.getElementById('sidebar')?.classList.remove('open');
   window.scrollTo(0,0);
@@ -52,17 +52,80 @@ function copyText(text){
 
 // === PROMPTS DATA ===
 const PROMPTS = [
-  { id: 1, cat: 'celebration', tag: 'Luxo', title: 'Brinde Elegante (Vestido Vermelho)', desc: 'Retrato de corpo inteiro em cenário de celebração com vestido vermelho e taça.', img: 'assets/celebration_1.png', full: `ultra-realistic photo, 8K resolution, full-body studio portrait of a woman standing centered in an elegant indoor celebration setting, facing the camera directly while holding a champagne flute filled with golden sparkling beverage at chest height, background metallic gold and deep burgundy balloons, red evening gown with high slit.` },
-  { id: 2, cat: 'celebration', tag: 'Estúdio', title: 'Comemoração 40 Anos', desc: 'Mulher sentada em bloco pedestal com balões de número "40" dourados.', img: 'assets/celebration_2.png', full: `ultra-realistic photo, 8K resolution, studio portrait of a woman seated on a white rectangular pedestal block, centered against a clean light gray seamless background, holding two large metallic gold foil balloons shaped as the numbers “4” and “0”, black tailored blazer and trousers.` },
-  { id: 3, cat: 'celebration', tag: 'Festivo', title: 'Festa 60 Anos (Chão)', desc: 'Sentada no chão de madeira com balões "Happy Birthday" e "60" prateados.', img: 'assets/celebration_3.png', full: `ultra-realistic photo, 8K resolution, indoor celebratory portrait of a woman seated on a polished wooden floor, white wall background decorated with large metallic silver foil balloon letters forming the phrase “HAPPY BIRTHDAY” and silver number balloons “60”, beige suit.` },
-  { id: 4, cat: 'celebration', tag: 'Minimalista', title: 'Bolo Preto (Soprando Velas)', desc: 'Perfil lateral soprando velas "60" em um bolo preto fosco elegante.', img: 'assets/celebration_4.png', full: `ultra-realistic photo, 8K resolution, side-profile composition, woman holding a two-tier black cake at chest level while gently blowing toward lit number candles “60” on top, matte black fondant cake, warm studio glow.` },
-  { id: 5, cat: 'celebration', tag: 'Dourado', title: 'Cenário Luxo 45 Anos', desc: 'Bolo branco matelassê com velas "45" e fundo de cortinas com luzes.', img: 'assets/celebration_5.png', full: `ultra-realistic photo, 8K resolution, elegant indoor celebration scene, woman standing behind a decorated table, two-tier white cake with gold number candles “45”, champagne glass, background beige curtains with bokeh lights.` },
+  { id: 1, cat: 'celebration', tag: 'Luxo', title: 'Brinde Elegante (Vestido Vermelho)', desc: 'Retrato de corpo inteiro em cenário de celebração com vestido vermelho e taça.', img: 'assets/celebration_1.png', full: `ultra-realistic photo, 8K resolution, full-body studio portrait of a woman standing centered in an elegant indoor celebration setting, facing the camera directly while holding a champagne flute filled with golden sparkling beverage at chest height, posture upright and poised, one arm relaxed at her side, composition balanced and symmetrical
+
+background features a luxurious decorative setup with a large balloon arch on the left side composed of metallic gold and deep burgundy balloons in varying sizes, glossy surfaces reflecting warm light, on the right side a cluster of matching gold and burgundy balloons arranged vertically, behind the subject a curtain backdrop in soft beige tones combined with warm string lights creating a dense bokeh effect of small glowing points, adding depth and a festive ambiance
+
+to the left of the subject, a small round side table with a gold metal frame and thin vertical rods supports a white frosted cake decorated with red berries on top, the cake placed on a simple stand, table surface clean and minimal, positioned slightly behind the subject to maintain depth layering
+
+subject wearing a luxurious floor-length red satin evening gown with a fitted bodice and wide flowing skirt, fabric highly reflective with rich sheen and visible folds cascading to the floor, deep draped neckline with gathered detailing across the chest, a high slit on one side revealing the leg, paired with red high-heeled sandals featuring thin straps, stance stable with weight evenly distributed
+
+facial features accurately matched from the provided reference image, hairstyle, hair texture, hair length, and hair color accurately matched from the provided reference image, body type, physical build, proportions, and overall physique accurately matched from the provided reference image
+
+lighting setup is warm and cinematic, with a soft key light from the front illuminating the subject evenly, complemented by ambient glow from the string lights behind, subtle rim lighting outlining the silhouette and enhancing separation from the background, reflections visible on satin fabric, glass surface, and balloon materials
+
+captured with an 85mm portrait lens, eye-level camera perspective, full-body framing with slight vertical emphasis, shallow depth of field keeping the subject sharply in focus while softly blurring background elements, high dynamic range with rich warm color grading, extremely detailed textures including satin fabric, balloon latex, glass reflections, and cake frosting, natural imperfections such as slight fabric creases, tiny reflections on balloons, and subtle variations in lighting intensity, refined and luxurious celebratory atmosphere` },
+  { id: 2, cat: 'celebration', tag: 'Estúdio', title: 'Comemoração 40 Anos', desc: 'Mulher sentada em bloco pedestal com balões de número "40" dourados.', img: 'assets/celebration_2.png', full: `ultra-realistic photo, 8K resolution, studio portrait of a woman seated on a white rectangular pedestal block, centered against a clean light gray seamless background, holding two large metallic gold foil balloons shaped as the numbers “4” and “0”, one in each hand, balloons highly reflective with visible seams, creases, and subtle distortions, catching studio light with bright specular highlights
+
+floor scattered with decorative balloons in gold, champagne, and rose-gold tones, some matte and some metallic, loosely arranged around the base of the pedestal, creating a balanced celebratory composition, soft shadows and faint reflections visible on the smooth studio floor
+
+subject wearing a tailored black outfit consisting of a fitted blazer and slim-cut trousers, paired with a black top underneath, fabric with a subtle matte finish and natural creases along the arms and legs, footwear includes black open-toe high-heeled sandals with thin straps and a glossy finish, legs crossed at the knee in a relaxed seated` },
+  { id: 3, cat: 'celebration', tag: 'Festivo', title: 'Festa 60 Anos (Chão)', desc: 'Sentada no chão de madeira com balões "Happy Birthday" e "60" prateados.', img: 'assets/celebration_3.png', full: `ultra-realistic photo, 8K resolution, indoor celebratory portrait of a woman seated on a polished wooden floor, centered composition with a clean white wall background decorated with large metallic silver foil balloon letters forming the phrase “HAPPY BIRTHDAY” arranged in two rows, and a separate set of silver number balloons “60” positioned to the right side, all balloons slightly reflective with visible seams and subtle distortions, attached with thin strings or adhesive points
+
+floor covered with scattered multicolored confetti pieces in various shapes and sizes, creating a festive texture across the foreground, surrounding the subject are multiple balloons resting on the floor including metallic gold balloons, deep blue balloons, and transparent balloons filled with gold confetti, arranged loosely on both sides to frame the subject
+
+subject seated in a relaxed pose with one leg bent inward and the other crossed over, posture casual yet composed, hands resting gently on the knee, wearing a tailored beige` },
+  { id: 4, cat: 'celebration', tag: 'Minimalista', title: 'Bolo Preto (Soprando Velas)', desc: 'Perfil lateral soprando velas "60" em um bolo preto fosco elegante.', img: 'assets/celebration_4.png', full: `ultra-realistic photo, 8K resolution, intimate studio portrait captured in a side-profile composition, featuring a woman holding a two-tier black cake at chest level while gently blowing toward lit number candles “60” on top, small candle flames flickering with subtle motion and warm glow, the subject positioned slightly right of center, facing left toward the cake, creating a dynamic directional composition
+
+the cake is coated in smooth matte black fondant with a refined, velvety texture, clean sharp edges on both tiers, a satin black ribbon wrapped around the base of the top tier tied into a neat bow at the front, placed on a thin round cake board with a subtle reflective edge, minimalist and elegant design emphasizing monochromatic styling
+
+background is a soft neutral beige-to-warm-gray gradient studio backdrop with a diffused circular spotlight effect centered behind the subject, creating a halo-like illumination, faint blurred “60” shape visible in the background as a soft shadow or projection, adding ` },
+  { id: 5, cat: 'celebration', tag: 'Dourado', title: 'Cenário Luxo 45 Anos', desc: 'Bolo branco matelassê com velas "45" e fundo de cortinas com luzes.', img: 'assets/celebration_5.png', full: `ultra-realistic photo, 8K resolution, elegant indoor celebration scene with a woman standing behind a decorated table, centered composition, framed from mid-thigh upward, luxurious warm-toned environment with beige draped curtains in the background, layered fabric creating soft vertical folds, integrated warm white string lights scattered behind the curtains producing a soft glowing bokeh effect
+
+foreground features a two-tier celebration cake placed on a round white cake stand, cake covered in smooth white fondant with a quilted diamond pattern and small gold bead accents at intersections, both tiers wrapped with satin gold ribbon bands tied into neat bows at the front, top tier decorated with metallic gold number candles “45” lit with small warm flames and subtle melted wax detail, soft glow illuminating the upper surface of the cake
+
+table surface covered in a neutral beige tablecloth, scattered with small round gold confetti pieces, on both sides of the table are dessert arrangements including small sweet` },
   { id: 6, cat: 'celebration', tag: 'Profissional', title: 'Blazer Marfim (40 Anos)', desc: 'Pose profissional com balão champagne "40" e bolo com drip gold.', img: 'assets/celebration_6.png', full: `ultra-realistic photo, 8K resolution, woman standing centered behind a small pedestal table, large metallic number balloon “40” in champagne-gold, minimalist white cake with gold drip, ivory blazer.` },
-  { id: 7, cat: 'celebration', tag: 'Ação', title: 'Bolo de Chocolate (45 Anos)', desc: 'Segurando bolo de chocolate para a frente com balões pretos e dourados.', img: 'assets/celebration_7.png', full: `ultra-realistic photo, 8K resolution, close-up studio portrait, woman holding a round chocolate cake forward toward the camera, glossy chocolate ganache, gold number candles “45”, black balloons background.` },
-  { id: 8, cat: 'celebration', tag: 'Criativo', title: 'Balões Flutuantes (Branco)', desc: 'Interagindo com balões dourados flutuantes em estúdio all-white.', img: 'assets/celebration_8.png', full: `ultra-realistic photo, 8K resolution, studio scene, woman seated on white cyclorama floor, lifting both arms upward toward floating metallic gold balloons, all-white outfit, visible softbox lights in background.` },
-  { id: 9, cat: 'celebration', tag: 'Disco', title: 'Cadeira Acrílica & Prata', desc: 'Look preto strapless com globos de discoteca e balões prata.', img: 'assets/celebration_9.png', full: `ultra-realistic photo, 8K resolution, woman seated on a transparent acrylic chair, gray background, symmetrical balloon arrangements in matte black and metallic silver, mirrored disco balls on floor, strapless black evening gown.` },
-  { id: 10, cat: 'celebration', tag: 'Moderno', title: 'Bolo Drip Gold (58 Anos)', desc: 'Segurando taça atrás de bolo drip com glitter e velas "58".', img: 'assets/celebration_10.png', full: `ultra-realistic photo, 8K resolution, tight medium portrait, woman holding champagne flute, behind a two-tier gold drip birthday cake with metallic gold number candles “58”, gold and transparent balloons background.` },
-  { id: 11, cat: 'celebration', tag: 'Elegante', title: 'Cubo Branco (44 Anos)', desc: 'Sentada em cubo branco com bolo delicado e balões rose gold.', img: 'assets/celebration_11.png', full: `ultra-realistic photo, 8K resolution, studio portrait of a woman seated on a clean white cube pedestal, holding a small round white birthday cake with gold number candles “44”, gold and rose-gold balloons.` }
+  { id: 7, cat: 'celebration', tag: 'Ação', title: 'Bolo de Chocolate (45 Anos)', desc: 'Segurando bolo de chocolate para a frente com balões pretos e dourados.', img: 'assets/celebration_7.png', full: `ultra-realistic photo, 8K resolution, close-up studio portrait of a woman centered in frame, holding a round chocolate cake forward toward the camera with both hands, creating a slight foreground emphasis on the cake, composition framed from mid-torso upward, dark neutral studio background with a subtle warm gradient, softly blurred to enhance subject separation, celebratory setup with balloon clusters in the background including matte black balloons, transparent balloons filled with gold confetti, and a prominent metallic gold star-shaped foil balloon positioned to the left side
+
+the cake is richly detailed with glossy dark chocolate ganache coating, smooth reflective surface with natural drips along the sides, topped with chocolate shavings and curls, base edge covered with small chocolate sprinkles, placed on a simple dark plate, on top of the cake are glittery gold number candles “45” with small lit flames producing a warm glow and slight melted wax texture
+
+subject wearing a black velvet or satin evening` },
+  { id: 8, cat: 'celebration', tag: 'Criativo', title: 'Balões Flutuantes (Branco)', desc: 'Interagindo com balões dourados flutuantes em estúdio all-white.', img: 'assets/celebration_8.png', full: `ultra-realistic photo, 8K resolution, studio scene with a woman seated on a seamless white cyclorama floor, captured in a dynamic candid moment as she lifts both arms upward toward several floating metallic gold balloons above her, balloons suspended mid-air with thin strings barely visible, additional balloon clusters arranged on the left side including a grouped bunch of gold balloons tied to a small white base, and a secondary cluster of white balloons resting on the floor in the background on the right side, minimalistic high-key studio environment
+
+visible studio equipment included in the composition: two large rectangular softbox lights positioned on both sides of the frame, slightly angled inward, with black outer casing and bright diffused panels facing the subject, contributing to a clean commercial photoshoot aesthetic, smooth white background and floor blending seamlessly with soft shadows beneath the subject and props
+
+subject wearing a coordinated all-white outfit consisting of a sleeveless knit-textured top with subtle vertical patterns and a long, lightweight, semi-flowing skirt with soft fabric draping naturally around the legs, paired with white open-toe heeled sandals featuring ankle straps and medium block heels with a natural wood-tone sole, accessories include multiple gold bracelets stacked on one wrist and rings on fingers, hands open and fingers slightly spread in a gesture of playful interaction with the balloons, seated posture slightly reclined with legs bent and angled to the side, feet relaxed on the floor
+
+facial features accurately matched from the provided reference image, hairstyle, hair texture, hair length, and hair color accurately matched from the provided reference image, body type, physical build, proportions, and overall physique accurately matched from the provided reference image
+
+lighting setup is bright, soft, and evenly diffused, with key light coming from the front and slightly above, enhanced by side softboxes creating minimal harsh shadows and smooth skin illumination, subtle specular highlights visible on the metallic balloon surfaces, gentle reflections on the floor, high dynamic range with balanced whites and preserved detail
+
+captured with a 50mm lens, slightly low-to-mid angle perspective enhancing the upward motion of the hands and balloons, shallow to moderate depth of field keeping the subject and foreground balloons sharp while slightly softening distant elements, crisp rendering of textures including knit fabric, smooth balloon latex, and matte studio floor, natural imperfections such as slight creases in clothing, tiny reflections and distortions on balloon surfaces, and minor variations in fabric folds, clean and modern celebratory visual style with a light, airy atmosphere` },
+  { id: 9, cat: 'celebration', tag: 'Disco', title: 'Cadeira Acrílica & Prata', desc: 'Look preto strapless com globos de discoteca e balões prata.', img: 'assets/celebration_9.png', full: `ultra-realistic photo, 8K resolution, full-body studio portrait of a woman seated on a transparent acrylic chair, centered composition against a smooth neutral gray seamless background, modern celebratory setup with symmetrical balloon arrangements on both sides consisting of matte black, metallic silver, and reflective chrome balloons, including a prominent silver star-shaped foil balloon on the right side, balloons tied in clustered bunches with thin strings extending to the floor
+
+on the floor surrounding the subject are multiple mirrored disco balls of varying sizes with tiled reflective surfaces, scattering fragmented reflections of light across the glossy studio floor, small metallic star-shaped confetti pieces scattered irregularly across the ground, adding texture and visual detail, subtle reflections visible beneath the chair and decorative elements
+
+subject wearing a strapless black evening gown with a sleek, form-fitting silhouette, smooth matte fabric with slight natural sheen, high slit revealing one leg crossed over the other in a poised seated posture, hem draping naturally with soft folds and fabric tension, paired with open-toe high-heeled sandals featuring thin metallic straps and a glossy finish, accessories include minimal jewelry such as a bracelet on one wrist, arms relaxed with hands resting naturally on the chair arms, posture upright and confident
+
+facial features accurately matched from the provided reference image, hairstyle, hair texture, hair length, and hair color accurately matched from the provided reference image, body type, physical build, proportions, and overall physique accurately matched from the provided reference image
+
+professional studio lighting setup with a soft key light positioned front-center creating even illumination across the subject, subtle fill light reducing shadows, and gentle rim lighting enhancing separation from the background, controlled highlights reflecting off metallic balloons and disco balls, realistic specular highlights on the acrylic chair edges, natural shadow gradients beneath the subject and objects
+
+captured with an 85mm portrait lens, eye-level camera perspective, shallow depth of field keeping the subject sharply in focus while slightly softening background elements, high dynamic range, precise texture rendering including fabric weave, reflective balloon surfaces, mirrored disco tiles, and acrylic transparency, realistic imperfections such as minor creases in fabric, subtle smudges on reflective surfaces, and slight irregularities in confetti placement, clean color grading with balanced contrast and neutral tones, elegant and modern celebratory aesthetic` },
+  { id: 10, cat: 'celebration', tag: 'Moderno', title: 'Bolo Drip Gold (58 Anos)', desc: 'Segurando taça atrás de bolo drip com glitter e velas "58".', img: 'assets/celebration_10.png', full: `ultra-realistic photo, 8K resolution, tight medium portrait of a woman standing against a clean, light gray studio background, framed from mid-torso upward, holding a tall champagne flute filled with pale golden sparkling wine in one hand at chest level, and positioned behind a two-tier birthday cake placed on a flat surface in front of her, celebratory composition with symmetrical balloon arrangement in the background featuring metallic gold balloons and transparent balloons filled with black confetti, balloons overlapping and softly out of focus, creating depth
+
+the cake consists of two tiers: the bottom tier covered in dense gold glitter texture with fine reflective particles, the top tier coated in smooth white fondant with glossy metallic gold drip icing flowing naturally down the sides, subtle irregularities in the drip thickness for realism, a neat white ribbon wrapped around the base of the top tier tied into a small bow at the front, on top of the cake are metallic gold number candles “58” with small` },
+  { id: 11, cat: 'celebration', tag: 'Elegante', title: 'Cubo Branco (44 Anos)', desc: 'Sentada em cubo branco com bolo delicado e balões rose gold.', img: 'assets/celebration_11.png', full: `ultra-realistic photo, 8K resolution, studio portrait of a woman seated on a clean white cube pedestal, holding a small round birthday cake at chest height with both hands, the cake decorated with smooth white frosting and metallic gold confetti-like accents around the sides, topped with lit number candles “44” emitting small warm flames and subtle glow, elegant celebratory setup with symmetrical clusters of metallic balloons on both sides of the subject, balloons in gold and rose-gold tones with reflective surfaces, tied together in bunches resting on the floor and rising upward, minimalistic light gray seamless studio background, glossy white floor with soft reflections visible beneath the subject and balloons, soft diffused photographic lighting from the front and slightly above creating gentle shadows and even skin tone illumination, subtle rim light separating the subject from the background, high dynamic range, sharp focus on subject and cake, shallow depth of field slightly softening distant balloons` },
+  { id: 12, cat: 'celebration', tag: 'Ar Livre', title: 'Parque Ensolarado (29 Anos)', desc: 'Jovem ao ar livre segurando bolo branco com velas "29" em parque ensolarado.', img: 'assets/celebration_12.png', full: `Ultra-realistic photo, 8K resolution, young woman standing outdoors in a sunlit park holding a round birthday cake toward the camera with both hands, medium close-up portrait composition, centered framing, direct eye contact with the camera, relaxed and natural pose, genuine warm smile, facial features accurately matched from the provided reference image, hairstyle, hair texture, hair length, and hair color accurately matched from the provided reference image, body type, physical build, proportions, and overall physique accurately matched from the provided reference image.
+
+The subject is wearing a black satin spaghetti-strap camisole with delicate black lace trim along the neckline, subtle fabric sheen, realistic folds and natural fabric tension, visible collarbones and shoulders, natural arm positioning while holding the cake, realistic skin texture with natural imperfections, soft pores, subtle tonal variations, realistic fingernails and hand anatomy.
+
+The birthday cake is a small elegant round cake with smooth white fondant icing, evenly spaced metallic gold pearl decorations around the sides and top surface, black flower decoration centered on top, reflective golden cake base tray, realistic fondant texture, subtle imperfections and handcrafted details. Two metallic gold number candles “2” and “9” are lit on top of the cake, visible candle flames with warm glow, realistic melted wax details and soft flame illumination affecting nearby surfaces.
+
+Outdoor park environment during golden hour, lush green grass field, colorful flowerbeds in the background with red, yellow, orange, and white flowers, tall trees softly blurred in the distance, warm sunset sunlight casting long soft shadows across the grass, cinematic natural lighting, warm color palette, soft ambient highlights on skin and cake surfaces, realistic environmental depth.
+
+Shallow depth of field with creamy background bokeh, professional portrait photography aesthetic, high-end DSLR or mirrorless camera quality, 85mm portrait lens, f/1.8 aperture look, natural perspective, ultra-detailed textures, realistic lighting transitions, accurate skin reflectance, realistic fabric rendering, subtle atmospheric haze from sunset light, photorealistic color grading, high dynamic range, crisp focus on the subject and cake, natural outdoor illumination, premium lifestyle photography style, authentic candid atmosphere, realistic optical imperfections, ultra-sharp foreground details with smooth background separation.` }
 ];
 
 let favs = JSON.parse(localStorage.getItem('jvpp-favs') || '[]');
@@ -134,72 +197,92 @@ function randPrompt(){document.getElementById('imgPrompt').value=RAND_PROMPTS[Ma
 
 let images=JSON.parse(localStorage.getItem('jvpp-imgs')||'[]');
 
-function genImage(){
+// === API CONFIG ===
+const OPENAI_KEY = '';
+
+// === IMAGE GENERATOR (REAL DALL-E 3) ===
+async function genImage(){
   const prompt=document.getElementById('imgPrompt').value.trim();
   if(!prompt){toast('⚠️ Digite um prompt primeiro','error');return;}
+  
   const gallery=document.getElementById('imgGallery');
-  gallery.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px"><div class="skeleton" style="width:48px;height:48px;border-radius:50%;margin:0 auto 12px"></div><p style="color:var(--on-dim);font-size:13px">Gerando sua imagem...</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px"><div class="skeleton skel-block"></div><div class="skeleton skel-block"></div></div></div>';
+  const originalContent = gallery.innerHTML;
+  gallery.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px"><div class="skeleton" style="width:48px;height:48px;border-radius:50%;margin:0 auto 12px"></div><p style="color:var(--on-dim);font-size:13px">Conectando ao DALL-E 3... Gerando arte...</p></div>';
+  
   const model=document.getElementById('imgModel').value;
   const style=document.getElementById('imgStyle').value;
-  setTimeout(()=>{
-    const c=document.createElement('canvas');c.width=512;c.height=512;const x=c.getContext('2d');
-    const palettes=[['#0a0e27','#1a0a3e','#00F0FF','#3B82F6'],['#0d1117','#161b22','#58a6ff','#f778ba'],['#1a1a2e','#16213e','#e94560','#0f3460'],['#0f0c29','#302b63','#24243e','#00F0FF'],['#0a2540','#0d3158','#00f0ff','#34d399']];
-    const pal=palettes[Math.floor(Math.random()*palettes.length)];
-    const bg=x.createLinearGradient(0,0,512,512);bg.addColorStop(0,pal[0]);bg.addColorStop(1,pal[1]);x.fillStyle=bg;x.fillRect(0,0,512,512);
-    for(let i=0;i<10;i++){x.beginPath();const px=Math.random()*512,py=Math.random()*512,r=30+Math.random()*140;const g=x.createRadialGradient(px,py,0,px,py,r);g.addColorStop(0,pal[2]+'35');g.addColorStop(1,'transparent');x.fillStyle=g;x.arc(px,py,r,0,Math.PI*2);x.fill();}
-    x.strokeStyle=pal[3]+'25';x.lineWidth=.8;for(let i=0;i<15;i++){x.beginPath();x.moveTo(Math.random()*512,Math.random()*512);x.lineTo(Math.random()*512,Math.random()*512);x.stroke();}
-    for(let i=0;i<4;i++){x.beginPath();const sz=20+Math.random()*60;const px=Math.random()*512,py=Math.random()*512;x.strokeStyle=pal[2]+'20';x.lineWidth=1;x.rect(px,py,sz,sz);x.stroke();}
-    const cg=x.createRadialGradient(256,256,0,256,256,180);cg.addColorStop(0,pal[2]+'12');cg.addColorStop(1,'transparent');x.fillStyle=cg;x.fillRect(0,0,512,512);
-    const url=c.toDataURL('image/png');
-    const img={url,prompt,model,style,time:new Date().toISOString()};
-    images.unshift(img);if(images.length>20)images.pop();
+  const finalPrompt = `${prompt} --style ${style} --ar 1:1, ultra-realistic, 8k, cinematic lighting, masterpiece`;
+
+  try {
+    const response = await fetch('https://api.openai.com/v1/images/generations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENAI_KEY}`
+      },
+      body: JSON.stringify({
+        model: "dall-e-3",
+        prompt: finalPrompt,
+        n: 1,
+        size: "1024x1024",
+        quality: "hd"
+      })
+    });
+
+    const data = await response.json();
+    if(data.error) throw new Error(data.error.message);
+
+    const url = data.data[0].url;
+    const img={url,prompt,model:"DALL-E 3",style,time:new Date().toISOString()};
+    images.unshift(img);
+    if(images.length>20) images.pop();
     localStorage.setItem('jvpp-imgs',JSON.stringify(images));
-    renderImgGallery();renderHistGallery();
-    toast('🎨 Imagem gerada com sucesso!','success');
-  },2200);
+    
+    renderImgGallery(); renderHistGallery();
+    toast('🎨 Imagem gerada com sucesso pela OpenAI!','success');
+  } catch (err) {
+    gallery.innerHTML = originalContent;
+    toast('❌ Erro na API: ' + err.message, 'error');
+  }
 }
 
-function renderImgGallery(){
-  const g=document.getElementById('imgGallery');if(!g)return;
-  if(!images.length){g.innerHTML='<div class="empty-state" style="grid-column:1/-1"><span class="material-symbols-outlined">add_photo_alternate</span><h4>Nenhuma imagem gerada</h4><p>Suas imagens aparecerão aqui após a geração.</p></div>';return;}
-  g.innerHTML=images.map((img,i)=>`<div class="gallery-item"><img src="${img.url}" alt="${img.prompt}"><div class="overlay"><p>${img.prompt.substring(0,70)}...</p><div class="overlay-actions"><button class="btn-icon" onclick="downloadImg(${i})" title="Baixar"><span class="material-symbols-outlined" style="font-size:16px">download</span></button><button class="btn-icon" onclick="copyText('${img.prompt.replace(/'/g,"\\'")}')" title="Copiar prompt"><span class="material-symbols-outlined" style="font-size:16px">content_copy</span></button><button class="btn-icon" onclick="delImg(${i})" title="Excluir"><span class="material-symbols-outlined" style="font-size:16px">delete</span></button></div></div></div>`).join('');
-}
-
-function downloadImg(i){
-  const a=document.createElement('a');a.href=images[i].url;a.download='jvpp-image-'+(i+1)+'.png';a.click();
-  toast('⬇️ Download iniciado!','success');
-}
-function delImg(i){
-  images.splice(i,1);localStorage.setItem('jvpp-imgs',JSON.stringify(images));
-  renderImgGallery();renderHistGallery();toast('🗑️ Imagem excluída','info');
-}
-
-// === PROMPT REFINER (ANTIGO COPY GEN) ===
-function genRefinedPrompt(){
+// === PROMPT REFINER (REAL GPT-4o) ===
+async function genRefinedPrompt(){
   const prompt=document.getElementById('copyPrompt').value.trim();
   const instr=document.getElementById('refineInstructions').value.trim();
   if(!prompt || !instr){toast('⚠️ Preencha o prompt e a instrução','error');return;}
   
   const rd=document.getElementById('copyResult');const out=document.getElementById('copyOut');
   rd.style.display='block';
-  out.innerHTML='<div class="skeleton skel-line w80"></div><div class="skeleton skel-line"></div>';
+  out.innerHTML='<div class="skeleton skel-line w80"></div><div class="skeleton skel-line"></div><p style="font-size:11px;color:var(--on-muted)">GPT-4o está analisando e otimizando seu prompt...</p>';
   
-  setTimeout(()=>{
-    // Simulação inteligente de atualização de prompt
-    let newPrompt = prompt;
-    
-    // Lógica simples de substituição para demonstração (ex: idade)
-    if(instr.toLowerCase().includes('anos')){
-      const ageMatch = instr.match(/\d+/);
-      if(ageMatch) newPrompt = newPrompt.replace(/\d+ anos/g, ageMatch[0] + ' anos').replace(/“\d+”/g, `“${ageMatch[0]}”`);
-    }
-    
-    // Adiciona as novas instruções de forma técnica
-    newPrompt = newPrompt + ", refined with: " + instr + ", cinematic lighting, detailed textures, 8K resolution.";
-    
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENAI_KEY}`
+      },
+      body: JSON.stringify({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: "Você é um engenheiro de prompts especialista em Midjourney e DALL-E. Sua tarefa é pegar um prompt base e aplicar instruções de modificação do usuário, transformando-os em um prompt técnico em INGLÊS, ultra-detalhado, focando em iluminação cinematográfica, texturas 8K e fotorrealismo. Retorne APENAS o prompt final." },
+          { role: "user", content: `Prompt Base: ${prompt}\nInstruções de Mudança: ${instr}` }
+        ],
+        temperature: 0.7
+      })
+    });
+
+    const data = await response.json();
+    if(data.error) throw new Error(data.error.message);
+
+    const newPrompt = data.choices[0].message.content.trim();
     out.textContent = newPrompt;
-    toast('✅ Prompt refinado com sucesso!','success');
-  },1500);
+    toast('✅ Prompt refinado com GPT-4o!','success');
+  } catch (err) {
+    out.textContent = "Erro ao processar prompt.";
+    toast('❌ Erro na API: ' + err.message, 'error');
+  }
 }
 
 function useRefinedPrompt(){
